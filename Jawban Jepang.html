@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ransomware Attack</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 50px;
+            overflow: hidden;
+            animation: flashBackground 0.5s infinite;
+        }
+        h1 {
+            color: red;
+            font-size: 3em;
+            margin: 0;
+            padding: 0;
+        }
+        p {
+            font-size: 1.5em;
+        }
+        .warning {
+            color: yellow;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        .countdown {
+            font-size: 3em;
+            color: red;
+            margin-top: 20px;
+        }
+        .blink {
+            animation: blink 1s infinite;
+        }
+        .taunt {
+            position: absolute;
+            font-size: 3em;
+            transition: transform 0.5s;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes flashBackground {
+            0% { background-color: black; }
+            50% { background-color: darkred; }
+            100% { background-color: black; }
+        }
+        @media (max-width: 600px) {
+            body {
+                animation: flashBackground 0.5s infinite, vibrate 0.1s infinite;
+            }
+            @keyframes vibrate {
+                0% { transform: translate(0, 0); }
+                25% { transform: translate(2px, 2px); }
+                50% { transform: translate(0, 2px); }
+                75% { transform: translate(2px, 0); }
+                100% { transform: translate(0, 0); }
+            }
+        }
+    </style>
+    <script>
+        function startCountdown(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = minutes + ":" + seconds;
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        function moveTaunt() {
+            const taunt = document.querySelector('.taunt');
+            const maxX = window.innerWidth - taunt.clientWidth;
+            const maxY = window.innerHeight - taunt.clientHeight;
+            const newX = Math.floor(Math.random() * maxX);
+            const newY = Math.floor(Math.random() * maxY);
+            taunt.style.transform = `translate(${newX}px, ${newY}px)`;
+        }
+
+        window.onload = function () {
+            let countdownMinutes = 5, // 5 minutes countdown
+                display = document.querySelector('.countdown');
+            startCountdown(countdownMinutes * 60, display);
+
+            // Play scary sound
+            let audio = new Audio('scary-sound.mp3');
+            audio.play();
+
+            // Move taunt text around
+            setInterval(moveTaunt, 1000); // Move taunt text every second
+        };
+    </script>
+</head>
+<body>
+    <h1 class="blink">RANSOMWARE ATTACK</h1>
+    <p class="warning">Your files have been encrypted!</p>
+    <p>All your important files have been encrypted with a strong encryption algorithm.</p>
+    <p>To restore access to your files, you must pay a ransom.</p>
+    <p>Contact us at: <a href="mailto:aaaaaaaa@gmail.com" style="color: red;">aaaaaaaaa@gmail.com</a></p>
+    <p class="countdown"></p>
+    <div class="taunt">😈</div>
+   
+</body>
+</html>
